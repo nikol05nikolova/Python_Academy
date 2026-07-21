@@ -29,7 +29,7 @@ class Game:
                 self.player.handle_collision(platform)
                 platform.draw(self.screen)
             self.player.draw(self.screen)  
-            pygame.display.flip()
+            pygame.display.update()
             self.clock.tick(60)
 
 def main():

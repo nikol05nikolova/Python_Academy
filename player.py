@@ -15,9 +15,9 @@ class Player:
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
-            self.rect.x -= PLAYER_SPEED
+            self.rect.x = max(self.rect.x - PLAYER_SPEED, 0)
         if keys[pygame.K_d]:
-            self.rect.x += PLAYER_SPEED
+            self.rect.x = min(self.rect.x + PLAYER_SPEED, SCREEN_WIDTH - PLAYER_WIDTH)
         self.velocity_y += GRAVITY
         self.rect.y += self.velocity_y
     
