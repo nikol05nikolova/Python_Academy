@@ -7,8 +7,6 @@ class Player:
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.velocity_y = 0
-        self.gravity = GRAVITY
-        self.jump_strength = JUMP_STRENGTH
         self.is_on_ground = False
 
     def draw(self, screen):
@@ -20,12 +18,13 @@ class Player:
             self.rect.x -= PLAYER_SPEED
         if keys[pygame.K_d]:
             self.rect.x += PLAYER_SPEED
-        self.velocity_y += self.gravity
+        self.velocity_y += GRAVITY
         self.rect.y += self.velocity_y
     
     def jump(self):
         if self.is_on_ground:
-            self.velocity_y = self.jump_strength
+            self.velocity_y = JUMP_STRENGTH
+            self.is_on_ground = False
 
     def handle_collision(self, platform):
         if self.rect.colliderect(platform.rect):
