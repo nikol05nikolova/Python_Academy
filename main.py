@@ -25,6 +25,7 @@ class Game:
                         self.player.jump()
             self.screen.fill(BACKGROUND_COLOR)
             self.player.update()
+            self.player.keep_inside_screen()
             for platform in self.platforms:
                 self.player.handle_collision(platform)
                 platform.draw(self.screen)
