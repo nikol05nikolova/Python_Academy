@@ -66,16 +66,17 @@ class Player:
 
     def handle_collision(self, platform):
         if self.rect.colliderect(platform.rect):
-            if self.previous_rect.bottom <= platform.rect.top:
+            if self.previous_rect.right <= platform.rect.left:
+                self.rect.right = platform.rect.left
+                self.velocity_x = 0
+            elif self.previous_rect.left >= platform.rect.right:
+                self.rect.left = platform.rect.right
+                self.velocity_x = 0
+            elif self.previous_rect.bottom <= platform.rect.top:
                 self.rect.bottom = platform.rect.top
                 self.velocity_y = 0
                 self.is_on_ground = True
             elif self.previous_rect.top >= platform.rect.bottom:
                 self.rect.top = platform.rect.bottom
                 self.velocity_y = 0
-            elif self.previous_rect.right <= platform.rect.left:
-                self.rect.right = platform.rect.left
-                self.velocity_x = 0
-            elif self.previous_rect.left >= platform.rect.right:
-                self.rect.left = platform.rect.right
-                self.velocity_x = 0
+            
