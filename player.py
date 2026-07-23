@@ -11,6 +11,14 @@ class Player:
         self.velocity_y = 0
         self.is_on_ground = False
 
+    def reset(self):
+        self.rect.x = PLAYER_START_X
+        self.rect.y = PLAYER_START_Y
+        self.x = PLAYER_START_X  
+        self.velocity_x = 0
+        self.velocity_y = 0
+        self.is_on_ground = False
+
     def keep_inside_screen(self):
         if self.rect.left < 0:
             self.rect.left = 0
@@ -23,6 +31,9 @@ class Player:
         if self.rect.top < 0:
             self.rect.top = 0
             self.velocity_y = 0
+
+        if self.rect.bottom > SCREEN_HEIGHT:
+            self.reset()
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
@@ -46,7 +57,6 @@ class Player:
         self.velocity_y += GRAVITY
         self.rect.y += self.velocity_y
 
-    
     def jump(self):
         if self.is_on_ground:
             self.velocity_y = JUMP_STRENGTH
