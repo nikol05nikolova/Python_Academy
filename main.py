@@ -12,7 +12,13 @@ class Game:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.player = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_COLOR)
-        self.platforms = [Platform(GROUND_X, GROUND_Y, GROUND_WIDTH, GROUND_HEIGHT, PLATFORM_COLOR)]
+        self.platforms = [  Platform(0, 650, 900, 50, PLATFORM_COLOR),
+
+                            Platform(0, 510, 800, 20, PLATFORM_COLOR),
+
+                            Platform(180, 340, 160, 20, PLATFORM_COLOR),
+
+                            Platform(520, 250, 180, 20, PLATFORM_COLOR)]
         
     def run(self):
         while True:
