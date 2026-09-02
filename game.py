@@ -3,6 +3,7 @@ import pygame
 from constants import *
 from player import Player
 from game_platform import Platform
+from snickers import Snickers
 
 
 class Game:
@@ -39,6 +40,13 @@ class Game:
             Platform(520, 250, 180, 20, PLATFORM_COLOR),
         ]
 
+        self.snickers = [
+            Snickers(200, 535, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_BLUE_COLOR, 1),
+            Snickers(460, 425, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_YELLOW_COLOR, 2),
+            Snickers(230, 305, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_BLUE_COLOR, 1),
+            Snickers(580, 215, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_YELLOW_COLOR, 2),
+        ]
+
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -53,8 +61,15 @@ class Game:
             self.screen.fill(BACKGROUND_COLOR)
             self.player_1.update(self.platforms)
             self.player_2.update(self.platforms)
+            for snickers in self.snickers:
+                if (self.player_1.rect.colliderect(snickers.rect) and snickers.player_number == 1):
+                    snickers.collect()
+                if (self.player_2.rect.colliderect(snickers.rect) and snickers.player_number == 2):
+                    snickers.collect()
             for platform in self.platforms:
                 platform.draw(self.screen)
+            for snickers in self.snickers:
+                snickers.draw(self.screen)
             self.player_1.draw(self.screen)
             self.player_2.draw(self.screen)
             pygame.display.update()
