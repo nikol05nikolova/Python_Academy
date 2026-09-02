@@ -1,8 +1,8 @@
 import pygame
 from constants import *
 
-class Player:
 
+class Player:
     def __init__(self, x, y, width, height, color, left_key, right_key, jump_key):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
@@ -24,7 +24,7 @@ class Player:
         self.velocity_x = 0
         self.velocity_y = 0
         self.is_on_ground = False
-    
+
     def keep_inside_screen(self):
         if self.rect.left < 0:
             self.rect.left = 0
@@ -60,7 +60,7 @@ class Player:
         self.velocity_x *= FRICTION
         if -0.1 < self.velocity_x < 0.1:
             self.velocity_x = 0
-        
+
         self.velocity_y += GRAVITY
         self.rect.y += self.velocity_y
 
@@ -84,4 +84,3 @@ class Player:
             elif self.previous_rect.top >= platform.rect.bottom:
                 self.rect.top = platform.rect.bottom
                 self.velocity_y = 0
-            
