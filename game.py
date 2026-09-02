@@ -42,10 +42,10 @@ class Game:
         ]
 
         self.snickers = [
-            Snickers(200, 535, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_BLUE_COLOR, 1),
-            Snickers(460, 425, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_YELLOW_COLOR, 2),
-            Snickers(230, 305, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_BLUE_COLOR, 1),
-            Snickers(580, 215, SNICKERS_WIDTH, SNICKERS_HEIGHT, SNICKERS_YELLOW_COLOR, 2),
+            Snickers(200, 522, SNICKERS_WIDTH, SNICKERS_HEIGHT,  "data/images/snickers_blue.png", 1),
+            Snickers(460, 412, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
+            Snickers(230, 292, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_blue.png", 1),
+            Snickers(580, 202, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
         ]
         self.collected_snickers = 0
 
