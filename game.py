@@ -48,17 +48,12 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == self.player_1.jump_key:
                         self.player_1.jump()
-
                     if event.key == self.player_2.jump_key:
                         self.player_2.jump()
             self.screen.fill(BACKGROUND_COLOR)
-            self.player_1.update()
-            self.player_2.update()
-            self.player_1.keep_inside_screen()
-            self.player_2.keep_inside_screen()
+            self.player_1.update(self.platforms)
+            self.player_2.update(self.platforms)
             for platform in self.platforms:
-                self.player_1.handle_collision(platform)
-                self.player_2.handle_collision(platform)
                 platform.draw(self.screen)
             self.player_1.draw(self.screen)
             self.player_2.draw(self.screen)
