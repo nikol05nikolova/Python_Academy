@@ -57,7 +57,6 @@ class Player:
                 self.x = self.rect.x
                 self.velocity_x = 0
 
-
     def move_vertical(self, platforms):
         self.is_on_ground = False
         self.y += self.velocity_y
@@ -71,7 +70,6 @@ class Player:
                     self.rect.top = platform.rect.bottom
                 self.y = self.rect.y
                 self.velocity_y = 0
-
 
     def keep_inside_screen(self):
         if self.rect.left < 0:
@@ -89,7 +87,6 @@ class Player:
         if self.rect.bottom > SCREEN_HEIGHT:
             self.reset()
 
-
     def update(self, platforms):
         self.handle_input()
         self.move_horizontal(platforms)
@@ -98,12 +95,10 @@ class Player:
         self.apply_friction()
         self.keep_inside_screen()
 
-
     def jump(self):
         if self.is_on_ground:
             self.velocity_y = JUMP_STRENGTH
             self.is_on_ground = False
-
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
