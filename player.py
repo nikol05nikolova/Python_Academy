@@ -3,23 +3,28 @@ from constants import *
 
 class Player:
 
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, color, left_key, right_key, jump_key):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.x = x
         self.velocity_x = 0
         self.velocity_y = 0
+        self.start_x = x
+        self.start_y = y
         self.is_on_ground = False
         self.previous_rect = self.rect.copy()
+        self.left_key = left_key
+        self.right_key = right_key
+        self.jump_key = jump_key
 
     def reset(self):
-        self.rect.x = PLAYER_START_X
-        self.rect.y = PLAYER_START_Y
-        self.x = PLAYER_START_X  
+        self.rect.x = self.start_x
+        self.rect.y = self.start_y
+        self.x = self.start_x
         self.velocity_x = 0
         self.velocity_y = 0
         self.is_on_ground = False
-
+    
     def keep_inside_screen(self):
         if self.rect.left < 0:
             self.rect.left = 0
@@ -42,9 +47,9 @@ class Player:
     def update(self):
         self.previous_rect = self.rect.copy()
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
+        if keys[self.left_key]:
             self.velocity_x -= PLAYER_ACCELERATION
-        if keys[pygame.K_d]:
+        if keys[self.right_key]:
             self.velocity_x += PLAYER_ACCELERATION
         if self.velocity_x > PLAYER_MAX_SPEED:
             self.velocity_x = PLAYER_MAX_SPEED

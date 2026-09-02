@@ -11,7 +11,8 @@ class Game:
         pygame.display.set_caption(WINDOW_TITLE)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
-        self.player = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_COLOR)
+        self.player_1 = Player(PLAYER_1_START_X, PLAYER_1_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_1_COLOR, pygame.K_a, pygame.K_d, pygame.K_w)
+        self.player_2 = Player(PLAYER_2_START_X, PLAYER_2_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_2_COLOR, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP)
         self.platforms = [
                             Platform(0, 650, 900, 50, PLATFORM_COLOR),
 
@@ -31,14 +32,21 @@ class Game:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_w:
-                        self.player.jump()
+                    if event.key == self.player_1.jump_key:
+                        self.player_1.jump()
+
+                    if event.key == self.player_2.jump_key:
+                        self.player_2.jump()
             self.screen.fill(BACKGROUND_COLOR)
-            self.player.update()
-            self.player.keep_inside_screen()
+            self.player_1.update()
+            self.player_2.update()
+            self.player_1.keep_inside_screen()
+            self.player_2.keep_inside_screen()
             for platform in self.platforms:
-                self.player.handle_collision(platform)
+                self.player_1.handle_collision(platform)
+                self.player_2.handle_collision(platform)
                 platform.draw(self.screen)
-            self.player.draw(self.screen)  
+            self.player_1.draw(self.screen)
+            self.player_2.draw(self.screen)
             pygame.display.update()
             self.clock.tick(60)
