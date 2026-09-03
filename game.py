@@ -5,6 +5,7 @@ from player import Player
 from game_platform import Platform
 from snickers import Snickers
 from puddle import Puddle
+from button import Button
 
 
 class Game:
@@ -62,7 +63,6 @@ class Game:
                 "data/images/puddle_blue.png",
                 "blue",
             ),
-
             Puddle(
                 530,
                 640,
@@ -72,7 +72,6 @@ class Game:
                 "data/images/puddle_yellow.png",
                 "yellow",
             ),
-
             Puddle(
                 750,
                 640,
@@ -81,6 +80,25 @@ class Game:
                 GREEN_PUDDLE_COLOR,
                 "data/images/puddle_green.png",
                 "green",
+            ),
+        ]
+
+        self.buttons = [
+            Button(
+                250,
+                640,
+                50,
+                20,
+                BLUE_PUDDLE_COLOR,
+                1,
+            ),
+            Button(
+                600,
+                640,
+                50,
+                20,
+                YELLOW_PUDDLE_COLOR,
+                2,
             ),
         ]
 
@@ -125,6 +143,8 @@ class Game:
             self.player_1.update(self.platforms)
             self.player_2.update(self.platforms)
             self.check_puddles()
+            for button in self.buttons:
+                button.update(self.player_1, self.player_2)
             for snickers in self.snickers:
                 if (
                     not snickers.collected
@@ -145,6 +165,8 @@ class Game:
                 platform.draw(self.screen)
             for puddle in self.puddles:
                 puddle.draw(self.screen)
+            for button in self.buttons:
+                button.draw(self.screen)
             for snickers in self.snickers:
                 snickers.draw(self.screen)
             self.player_1.draw(self.screen)
