@@ -4,6 +4,7 @@ from constants import *
 from player import Player
 from game_platform import Platform
 from snickers import Snickers
+from puddle import Puddle
 
 
 class Game:
@@ -19,6 +20,7 @@ class Game:
             PLAYER_WIDTH,
             PLAYER_HEIGHT,
             PLAYER_1_COLOR,
+            "data/images/snake_blue.png",
             pygame.K_a,
             pygame.K_d,
             pygame.K_w,
@@ -29,6 +31,7 @@ class Game:
             PLAYER_WIDTH,
             PLAYER_HEIGHT,
             PLAYER_2_COLOR,
+            "data/images/snake_yellow.png",
             pygame.K_LEFT,
             pygame.K_RIGHT,
             pygame.K_UP,
@@ -49,16 +52,59 @@ class Game:
         ]
         self.collected_snickers = 0
 
+        self.puddles = [
+            Puddle(
+                350,
+                630,
+                80,
+                PUDDLE_HEIGHT,
+                BLUE_PUDDLE_COLOR,
+                "blue",
+            ),
+
+            Puddle(
+                530,
+                630,
+                80,
+                PUDDLE_HEIGHT,
+                YELLOW_PUDDLE_COLOR,
+                "yellow",
+            ),
+
+            Puddle(
+                750,
+                630,
+                100,
+                PUDDLE_HEIGHT,
+                GREEN_PUDDLE_COLOR,
+                "green",
+            ),
+        ]
+
+    def reset_level(self):
+        self.player_1.reset()
+        self.player_2.reset()
+        for snickers in self.snickers:
+            snickers.reset()
+        self.collected_snickers = 0
+
+    def check_puddles(self):
+        for puddle in self.puddles:
+            if self.player_1.rect.colliderect(puddle.rect):
+                if puddle.puddle_type != "blue":
+                    self.reset_level()
+            if self.player_2.rect.colliderect(puddle.rect):
+                if puddle.puddle_type != "yellow":
+                    self.reset_level()
+
     def draw_ui(self):
         collected = self.collected_snickers
         total = len(self.snickers)
-
         text = self.font.render(
             f"Snickers: {collected} / {total}",
             True,
             (255, 255, 255)
         )
-
         self.screen.blit(text, (20, 20))
 
     def run(self):
@@ -75,6 +121,7 @@ class Game:
             self.screen.fill(BACKGROUND_COLOR)
             self.player_1.update(self.platforms)
             self.player_2.update(self.platforms)
+            self.check_puddles()
             for snickers in self.snickers:
                 if (
                     not snickers.collected
@@ -93,6 +140,8 @@ class Game:
                     self.collected_snickers += 1
             for platform in self.platforms:
                 platform.draw(self.screen)
+            for puddle in self.puddles:
+                puddle.draw(self.screen)
             for snickers in self.snickers:
                 snickers.draw(self.screen)
             self.player_1.draw(self.screen)
