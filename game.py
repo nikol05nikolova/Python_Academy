@@ -45,38 +45,41 @@ class Game:
         ]
 
         self.snickers = [
-            Snickers(200, 522, SNICKERS_WIDTH, SNICKERS_HEIGHT,  "data/images/snickers_blue.png", 1),
-            Snickers(460, 412, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
-            Snickers(230, 292, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_blue.png", 1),
-            Snickers(580, 202, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
+            Snickers(200, 527, SNICKERS_WIDTH, SNICKERS_HEIGHT,  "data/images/snickers_blue.png", 1),
+            Snickers(460, 417, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
+            Snickers(230, 297, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_blue.png", 1),
+            Snickers(580, 207, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
         ]
         self.collected_snickers = 0
 
         self.puddles = [
             Puddle(
                 350,
-                630,
-                80,
+                637,
+                90,
                 PUDDLE_HEIGHT,
                 BLUE_PUDDLE_COLOR,
+                "data/images/puddle_blue.png",
                 "blue",
             ),
 
             Puddle(
                 530,
-                630,
-                80,
+                637,
+                90,
                 PUDDLE_HEIGHT,
                 YELLOW_PUDDLE_COLOR,
+                "data/images/puddle_yellow.png",
                 "yellow",
             ),
 
             Puddle(
                 750,
-                630,
+                637,
                 100,
                 PUDDLE_HEIGHT,
                 GREEN_PUDDLE_COLOR,
+                "data/images/puddle_green.png",
                 "green",
             ),
         ]
