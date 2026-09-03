@@ -6,6 +6,7 @@ from game_platform import Platform
 from snickers import Snickers
 from puddle import Puddle
 from button import Button
+from door import Door
 
 
 class Game:
@@ -86,7 +87,7 @@ class Game:
         self.buttons = [
             Button(
                 250,
-                640,
+                330,
                 50,
                 20,
                 BLUE_PUDDLE_COLOR,
@@ -94,11 +95,21 @@ class Game:
             ),
             Button(
                 600,
-                640,
+                240,
                 50,
                 20,
                 YELLOW_PUDDLE_COLOR,
                 2,
+            ),
+        ]
+
+        self.doors = [
+            Door(
+                500,
+                590,
+                30,
+                60,
+                PLATFORM_COLOR,
             ),
         ]
 
@@ -145,6 +156,8 @@ class Game:
             self.check_puddles()
             for button in self.buttons:
                 button.update(self.player_1, self.player_2)
+            for door in self.doors:
+                door.update(self.buttons[0])
             for snickers in self.snickers:
                 if (
                     not snickers.collected
@@ -167,6 +180,8 @@ class Game:
                 puddle.draw(self.screen)
             for button in self.buttons:
                 button.draw(self.screen)
+            for door in self.doors:
+                door.draw(self.screen)
             for snickers in self.snickers:
                 snickers.draw(self.screen)
             self.player_1.draw(self.screen)
