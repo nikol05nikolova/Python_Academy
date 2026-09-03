@@ -55,7 +55,7 @@ class Game:
         self.puddles = [
             Puddle(
                 350,
-                637,
+                640,
                 90,
                 PUDDLE_HEIGHT,
                 BLUE_PUDDLE_COLOR,
@@ -65,7 +65,7 @@ class Game:
 
             Puddle(
                 530,
-                637,
+                640,
                 90,
                 PUDDLE_HEIGHT,
                 YELLOW_PUDDLE_COLOR,
@@ -75,7 +75,7 @@ class Game:
 
             Puddle(
                 750,
-                637,
+                640,
                 100,
                 PUDDLE_HEIGHT,
                 GREEN_PUDDLE_COLOR,
