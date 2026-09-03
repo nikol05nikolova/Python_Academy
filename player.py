@@ -16,8 +16,10 @@ class Player:
         self.left_key = left_key
         self.right_key = right_key
         self.jump_key = jump_key
-        self.image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (width, height))
+        self.image_right = pygame.image.load(image_path).convert_alpha()
+        self.image_right = pygame.transform.scale(self.image_right, (width, height))
+        self.image_left = pygame.transform.flip(self.image_right, True, False)
+        self.facing_right = True
 
     def reset(self):
         self.x = float(self.start_x)
@@ -32,8 +34,10 @@ class Player:
         keys = pygame.key.get_pressed()
         if keys[self.left_key]:
             self.velocity_x -= PLAYER_ACCELERATION
+            self.facing_right = False
         if keys[self.right_key]:
             self.velocity_x += PLAYER_ACCELERATION
+            self.facing_right = True
         if self.velocity_x > PLAYER_MAX_SPEED:
             self.velocity_x = PLAYER_MAX_SPEED
         if self.velocity_x < -PLAYER_MAX_SPEED:
@@ -103,4 +107,5 @@ class Player:
             self.is_on_ground = False
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        image = self.image_right if self.facing_right else self.image_left
+        screen.blit(image, self.rect)
