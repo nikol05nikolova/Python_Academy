@@ -3,7 +3,7 @@ from constants import *
 
 
 class Player:
-    def __init__(self, x, y, width, height, color, left_key, right_key, jump_key):
+    def __init__(self, x, y, width, height, color, image_path, left_key, right_key, jump_key):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.x = float(x)
@@ -16,6 +16,8 @@ class Player:
         self.left_key = left_key
         self.right_key = right_key
         self.jump_key = jump_key
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (width, height))
 
     def reset(self):
         self.x = float(self.start_x)
@@ -101,4 +103,4 @@ class Player:
             self.is_on_ground = False
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
+        screen.blit(self.image, self.rect)
