@@ -6,13 +6,8 @@ class Snickers:
         self.rect = pygame.Rect(x, y, width, height)
         self.player_number = player_number
         self.collected = False
-
         self.image = pygame.image.load(image_path).convert_alpha()
-
-        self.image = pygame.transform.scale(
-            self.image,
-            (width, height)
-        )
+        self.image = pygame.transform.scale(self.image,(width, height))
 
     def collect(self):
         self.collected = True
