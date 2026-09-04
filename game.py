@@ -14,8 +14,12 @@ class Game:
         self.font = pygame.font.Font(None, 32)
         self.pause_title_font = pygame.font.Font(None, 48)
         self.pause_item_font = pygame.font.Font(None, 36)
+        self.complete_font = pygame.font.Font(None, 72)
         self.level_path = level_path
         self.paused = False
+        self.level_complete = False
+        self.player_1_finished = False
+        self.player_2_finished = False
         self.pause_entries = []
         self.build_level()
 
@@ -49,6 +53,7 @@ class Game:
         self.puddles = level.puddles
         self.buttons = level.buttons
         self.doors = level.doors
+        self.exit_doors = level.exit_doors
         self.computers = level.computers
 
     def reset_level(self):
@@ -59,6 +64,9 @@ class Game:
         for computer in self.computers:
             computer.reset()
         self.collected_snickers = 0
+        self.player_1_finished = False
+        self.player_2_finished = False
+        self.level_complete = False
 
     def check_puddles(self):
         for puddle in self.puddles:
@@ -68,6 +76,17 @@ class Game:
             if self.player_2.rect.colliderect(puddle.rect):
                 if puddle.puddle_type != "yellow":
                     self.reset_level()
+
+    def check_exit_doors(self):
+        for exit_door in self.exit_doors:
+            if exit_door.player_number == 1:
+                if self.player_1.rect.colliderect(exit_door.rect):
+                    self.player_1_finished = True
+            elif exit_door.player_number == 2:
+                if self.player_2.rect.colliderect(exit_door.rect):
+                    self.player_2_finished = True
+        if self.player_1_finished and self.player_2_finished:
+            self.level_complete = True
 
     def handle_door_collisions(self):
         players = [self.player_1, self.player_2]
@@ -120,6 +139,12 @@ class Game:
             text_rect = text_surface.get_rect(center=rect.center)
             self.screen.blit(text_surface, text_rect)
 
+    def draw_level_complete(self):
+        self.screen.fill(BACKGROUND_COLOR)
+        text_surface = self.complete_font.render("Level Complete!", True, (255, 255, 255))
+        text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        self.screen.blit(text_surface, text_rect)
+
     def run(self):
         self.build_pause_entries()
         while True:
@@ -128,8 +153,11 @@ class Game:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE and not self.level_complete:
                         self.paused = not self.paused
+                    elif self.level_complete:
+                        if event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                            return
                     elif not self.paused:
                         if event.key == self.player_1.jump_key:
                             self.player_1.jump()
@@ -147,11 +175,14 @@ class Game:
                                 self.paused = False
                             elif label == "Return to Main Menu":
                                 return
-            if not self.paused:
+            if not self.paused and not self.level_complete:
                 self.update_world()
-            self.draw_world()
-            if self.paused:
-                self.draw_pause_overlay()
+            if self.level_complete:
+                self.draw_level_complete()
+            else:
+                self.draw_world()
+                if self.paused:
+                    self.draw_pause_overlay()
             pygame.display.update()
             self.clock.tick(60)
 
@@ -166,6 +197,7 @@ class Game:
         for door in self.doors:
             door.update(self.computers)
         self.handle_door_collisions()
+        self.check_exit_doors()
         for snickers in self.snickers:
             if (
                 not snickers.collected
@@ -192,10 +224,13 @@ class Game:
             button.draw(self.screen)
         for door in self.doors:
             door.draw(self.screen)
+        for exit_door in self.exit_doors:
+            exit_door.draw(self.screen)
         for snickers in self.snickers:
             snickers.draw(self.screen)
         for computer in self.computers:
             computer.draw(self.screen)
-        self.player_1.draw(self.screen)
-        self.player_2.draw(self.screen)
+        if not self.level_complete:
+            self.player_1.draw(self.screen)
+            self.player_2.draw(self.screen)
         self.draw_ui()
