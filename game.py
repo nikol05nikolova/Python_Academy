@@ -168,7 +168,7 @@ class Game:
             self.player_2.update(self.platforms, self.doors, self.computers)
             self.check_puddles()
             for button in self.buttons:
-                button.update(self.player_1, self.player_2)
+                button.update(self.player_1, self.player_2, self.computers)
             for door in self.doors:
                 door.update()
             self.handle_door_collisions()

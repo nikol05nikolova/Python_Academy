@@ -7,11 +7,15 @@ class Button:
         self.color = color
         self.pressed = False
 
-    def update(self, player_1, player_2):
+    def update(self, player_1, player_2, computers):
         self.pressed = (
             self.rect.colliderect(player_1.rect)
             or self.rect.colliderect(player_2.rect)
         )
+        for computer in computers:
+            if self.rect.colliderect(computer.rect):
+                self.pressed = True
+                break
 
     def draw(self, screen):
         if self.pressed:
