@@ -37,17 +37,17 @@
     "exit_doors": [
         {
             "x": 20,
-            "y": 590,
-            "width": 40,
-            "height": 60,
+            "y": 575,
+            "width": 50,
+            "height": 75,
             "color": "blue",
             "player_number": 1
         },
         {
             "x": 840,
-            "y": 590,
-            "width": 40,
-            "height": 60,
+            "y": 575,
+            "width": 50,
+            "height": 75,
             "color": "yellow",
             "player_number": 2
         }

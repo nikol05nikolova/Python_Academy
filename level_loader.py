@@ -50,6 +50,11 @@ DOOR_IMAGES = {
     "red": "data/images/door_red.png",
 }
 
+EXIT_DOOR_IMAGES = {
+    "blue": "data/images/exit_door_blue.png",
+    "yellow": "data/images/exit_door_yellow.png",
+}
+
 
 class Level:
     def __init__(self, data):
@@ -116,7 +121,7 @@ class Level:
                 d["y"],
                 d["width"],
                 d["height"],
-                NAMED_COLORS[d["color"]],
+                EXIT_DOOR_IMAGES[d["color"]],
                 d["player_number"],
             )
             for d in data.get("exit_doors", [])
