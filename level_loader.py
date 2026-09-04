@@ -6,6 +6,7 @@ from game_platform import Platform
 from puddle import Puddle
 from button import Button
 from door import Door
+from exit_door import ExitDoor
 from computer import Computer
 from snickers import Snickers
 
@@ -14,13 +15,12 @@ NAMED_COLORS = {
     "pink": PINK_COLOR,
     "green": GREEN_COLOR,
     "red": RED_COLOR,
+    "blue": PLAYER_1_COLOR,
+    "yellow": PLAYER_2_COLOR,
 }
 
 BUTTON_IMAGES = {
-    "purple": (
-        "data/images/button_purple.png",
-        "data/images/button_purple_pressed.png",
-    ),
+    "purple": ("data/images/button_purple.png", "data/images/button_purple_pressed.png"),
     "pink": ("data/images/button_pink.png", "data/images/button_pink_pressed.png"),
     "green": ("data/images/button_green.png", "data/images/button_green_pressed.png"),
     "red": ("data/images/button_red.png", "data/images/button_red_pressed.png"),
@@ -49,7 +49,13 @@ class Level:
         self.player_1_start = data["player_1_start"]
         self.player_2_start = data["player_2_start"]
         self.platforms = [
-            Platform(p["x"], p["y"], p["width"], p["height"], PLATFORM_COLOR)
+            Platform(
+                p["x"], 
+                p["y"], 
+                p["width"], 
+                p["height"], 
+                PLATFORM_COLOR,
+            )
             for p in data.get("platforms", [])
         ]
         self.snickers = [
@@ -96,6 +102,17 @@ class Level:
                 self.buttons[d["button_index"]],
             )
             for d in data.get("doors", [])
+        ]
+        self.exit_doors = [
+            ExitDoor(
+                d["x"],
+                d["y"],
+                d["width"],
+                d["height"],
+                NAMED_COLORS[d["color"]],
+                d["player_number"],
+            )
+            for d in data.get("exit_doors", [])
         ]
         self.computers = [
             Computer(c["x"], c["y"], c["width"], c["height"], (120, 120, 120))
