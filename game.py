@@ -86,10 +86,10 @@ class Game:
         ]
 
         self.buttons = [
-            Button(150, 640, 50, 20, PURPLE_COLOR),
-            Button(300, 640, 50, 20, PINK_COLOR),
-            Button(490, 450, 50, 20, GREEN_COLOR),
-            Button(650, 640, 50, 20, RED_COLOR),
+            Button(150, 640, 50, 20, PURPLE_COLOR, "data/images/button_purple.png", "data/images/button_purple_pressed.png"),
+            Button(300, 640, 50, 20, PINK_COLOR, "data/images/button_pink.png", "data/images/button_pink_pressed.png"),
+            Button(490, 450, 50, 20, GREEN_COLOR, "data/images/button_green.png", "data/images/button_green_pressed.png"),
+            Button(650, 640, 50, 20, RED_COLOR, "data/images/button_red.png", "data/images/button_red_pressed.png"),
         ]
 
         self.doors = [
@@ -107,13 +107,6 @@ class Game:
                 50,
                 (120, 120, 120),
             ),
-            Computer(
-                100,
-                300,
-                50,
-                50,
-                (120, 120, 120),
-                    ),
         ]
 
     def reset_level(self):
