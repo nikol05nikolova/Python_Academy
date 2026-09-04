@@ -139,8 +139,12 @@ class Game:
 
     def draw_level_complete(self):
         self.screen.fill(BACKGROUND_COLOR)
-        text_surface = self.complete_font.render("Level Complete!", True, (255, 255, 255))
-        text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        text_surface = self.complete_font.render(
+            "Level Complete!", True, (255, 255, 255)
+        )
+        text_rect = text_surface.get_rect(
+            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        )
         self.screen.blit(text_surface, text_rect)
 
     def run(self):

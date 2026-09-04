@@ -12,9 +12,8 @@ class Button:
         self.pressed_image = pygame.transform.scale(self.pressed_image, (width, height))
 
     def update(self, player_1, player_2, computers):
-        self.pressed = (
-            self.rect.colliderect(player_1.rect)
-            or self.rect.colliderect(player_2.rect)
+        self.pressed = self.rect.colliderect(player_1.rect) or self.rect.colliderect(
+            player_2.rect
         )
         for computer in computers:
             if self.rect.colliderect(computer.rect):

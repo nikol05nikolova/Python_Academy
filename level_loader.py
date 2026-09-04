@@ -50,10 +50,10 @@ class Level:
         self.player_2_start = data["player_2_start"]
         self.platforms = [
             Platform(
-                p["x"], 
-                p["y"], 
-                p["width"], 
-                p["height"], 
+                p["x"],
+                p["y"],
+                p["width"],
+                p["height"],
                 PLATFORM_COLOR,
             )
             for p in data.get("platforms", [])
