@@ -33,5 +33,23 @@
     ],
     "computers": [
         {"x": 100, "y": 500, "width": 50, "height": 50}
+    ],
+    "exit_doors": [
+        {
+            "x": 20,
+            "y": 590,
+            "width": 40,
+            "height": 60,
+            "color": "blue",
+            "player_number": 1
+        },
+        {
+            "x": 840,
+            "y": 590,
+            "width": 40,
+            "height": 60,
+            "color": "yellow",
+            "player_number": 2
+        }
     ]
 }

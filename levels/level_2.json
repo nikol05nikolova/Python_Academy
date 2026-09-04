@@ -19,5 +19,23 @@
     ],
     "buttons": [],
     "doors": [],
-    "computers": []
+    "computers": [],
+    "exit_doors": [
+        {
+            "x": 610,
+            "y": 480,
+            "width": 40,
+            "height": 60,
+            "color": "blue",
+            "player_number": 1
+        },
+        {
+            "x": 760,
+            "y": 480,
+            "width": 40,
+            "height": 60,
+            "color": "yellow",
+            "player_number": 2
+        }
+    ]
 }
