@@ -85,32 +85,17 @@ class Game:
         ]
 
         self.buttons = [
-            Button(
-                250,
-                330,
-                50,
-                20,
-                BLUE_PUDDLE_COLOR,
-                1,
-            ),
-            Button(
-                600,
-                240,
-                50,
-                20,
-                YELLOW_PUDDLE_COLOR,
-                2,
-            ),
+            Button(150, 640, 50, 20, PURPLE_COLOR),
+            Button(300, 640, 50, 20, PINK_COLOR),
+            Button(490, 450, 50, 20, GREEN_COLOR),
+            Button(650, 640, 50, 20, RED_COLOR),
         ]
 
         self.doors = [
-            Door(
-                500,
-                590,
-                30,
-                60,
-                PLATFORM_COLOR,
-            ),
+            Door(250, 590, 30, 60, PURPLE_COLOR, self.buttons[0]),
+            Door(400, 590, 30, 60, PINK_COLOR, self.buttons[1]),
+            Door(550, 400, 30, 60, GREEN_COLOR, self.buttons[2]),
+            Door(800, 590, 30, 60, RED_COLOR, self.buttons[3]),
         ]
 
     def reset_level(self):
@@ -172,7 +157,7 @@ class Game:
             for button in self.buttons:
                 button.update(self.player_1, self.player_2)
             for door in self.doors:
-                door.update(self.buttons[0])
+                door.update()
             self.handle_door_collisions()
             for snickers in self.snickers:
                 if (
