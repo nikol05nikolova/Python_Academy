@@ -129,6 +129,21 @@ class Game:
                 if puddle.puddle_type != "yellow":
                     self.reset_level()
 
+    def handle_door_collisions(self):
+        players = [self.player_1, self.player_2]
+        for door in self.doors:
+            if door.open:
+                continue
+            for player in players:
+                if not player.rect.colliderect(door.rect):
+                    continue
+                if player.rect.centerx < door.rect.centerx:
+                    player.rect.right = door.rect.left
+                else:
+                    player.rect.left = door.rect.right
+                player.x = player.rect.x
+                player.velocity_x = 0
+
     def draw_ui(self):
         collected = self.collected_snickers
         total = len(self.snickers)
@@ -151,13 +166,14 @@ class Game:
                     if event.key == self.player_2.jump_key:
                         self.player_2.jump()
             self.screen.fill(BACKGROUND_COLOR)
-            self.player_1.update(self.platforms)
-            self.player_2.update(self.platforms)
+            self.player_1.update(self.platforms, self.doors)
+            self.player_2.update(self.platforms, self.doors)
             self.check_puddles()
             for button in self.buttons:
                 button.update(self.player_1, self.player_2)
             for door in self.doors:
                 door.update(self.buttons[0])
+            self.handle_door_collisions()
             for snickers in self.snickers:
                 if (
                     not snickers.collected

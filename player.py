@@ -51,7 +51,7 @@ class Player:
         if abs(self.velocity_x) < 0.1:
             self.velocity_x = 0
 
-    def move_horizontal(self, platforms):
+    def move_horizontal(self, platforms, doors):
         self.x += self.velocity_x
         self.rect.x = round(self.x)
         for platform in platforms:
@@ -60,6 +60,14 @@ class Player:
                     self.rect.right = platform.rect.left
                 elif self.velocity_x < 0:
                     self.rect.left = platform.rect.right
+                self.x = self.rect.x
+                self.velocity_x = 0
+        for door in doors:
+            if not door.open and self.rect.colliderect(door.rect):
+                if self.velocity_x > 0:
+                    self.rect.right = door.rect.left
+                elif self.velocity_x < 0:
+                    self.rect.left = door.rect.right
                 self.x = self.rect.x
                 self.velocity_x = 0
 
@@ -93,9 +101,9 @@ class Player:
         if self.rect.bottom > SCREEN_HEIGHT:
             self.reset()
 
-    def update(self, platforms):
+    def update(self, platforms, doors):
         self.handle_input()
-        self.move_horizontal(platforms)
+        self.move_horizontal(platforms, doors)
         self.apply_gravity()
         self.move_vertical(platforms)
         self.apply_friction()
