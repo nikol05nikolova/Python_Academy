@@ -1,0 +1,23 @@
+{
+    "player_1_start": {"x": 20, "y": 100},
+    "player_2_start": {"x": 70, "y": 100},
+    "platforms": [
+        {"x": 0, "y": 650, "width": 900, "height": 50},
+        {"x": 650, "y": 540, "width": 200, "height": 20},
+        {"x": 400, "y": 430, "width": 200, "height": 20},
+        {"x": 150, "y": 320, "width": 200, "height": 20},
+        {"x": 500, "y": 210, "width": 200, "height": 20}
+    ],
+    "snickers": [
+        {"x": 730, "y": 510, "color": "blue", "player_number": 1},
+        {"x": 480, "y": 400, "color": "yellow", "player_number": 2},
+        {"x": 230, "y": 290, "color": "blue", "player_number": 1},
+        {"x": 580, "y": 180, "color": "yellow", "player_number": 2}
+    ],
+    "puddles": [
+        {"x": 400, "y": 640, "width": 90, "type": "green"}
+    ],
+    "buttons": [],
+    "doors": [],
+    "computers": []
+}

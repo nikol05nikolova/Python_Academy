@@ -1,0 +1,37 @@
+{
+    "player_1_start": {"x": 20, "y": 100},
+    "player_2_start": {"x": 70, "y": 100},
+    "platforms": [
+        {"x": 0, "y": 650, "width": 900, "height": 50},
+        {"x": 120, "y": 570, "width": 180, "height": 20},
+        {"x": 420, "y": 460, "width": 180, "height": 20},
+        {"x": 180, "y": 340, "width": 160, "height": 20},
+        {"x": 520, "y": 250, "width": 180, "height": 20}
+    ],
+    "snickers": [
+        {"x": 200, "y": 527, "color": "blue", "player_number": 1},
+        {"x": 460, "y": 417, "color": "yellow", "player_number": 2},
+        {"x": 230, "y": 297, "color": "blue", "player_number": 1},
+        {"x": 580, "y": 207, "color": "yellow", "player_number": 2}
+    ],
+    "puddles": [
+        {"x": 350, "y": 640, "width": 90, "type": "blue"},
+        {"x": 530, "y": 640, "width": 90, "type": "yellow"},
+        {"x": 750, "y": 640, "width": 100, "type": "green"}
+    ],
+    "buttons": [
+        {"x": 150, "y": 640, "width": 50, "height": 20, "color": "purple"},
+        {"x": 300, "y": 640, "width": 50, "height": 20, "color": "pink"},
+        {"x": 490, "y": 450, "width": 50, "height": 20, "color": "green"},
+        {"x": 650, "y": 640, "width": 50, "height": 20, "color": "red"}
+    ],
+    "doors": [
+        {"x": 250, "y": 590, "width": 30, "height": 60, "color": "purple", "button_index": 0},
+        {"x": 400, "y": 590, "width": 30, "height": 60, "color": "pink", "button_index": 1},
+        {"x": 550, "y": 400, "width": 30, "height": 60, "color": "green", "button_index": 2},
+        {"x": 800, "y": 590, "width": 30, "height": 60, "color": "red", "button_index": 3}
+    ],
+    "computers": [
+        {"x": 100, "y": 500, "width": 50, "height": 50}
+    ]
+}
