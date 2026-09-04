@@ -18,8 +18,6 @@ class Game:
         self.level_path = level_path
         self.paused = False
         self.level_complete = False
-        self.player_1_finished = False
-        self.player_2_finished = False
         self.pause_entries = []
         self.build_level()
 
@@ -64,8 +62,6 @@ class Game:
         for computer in self.computers:
             computer.reset()
         self.collected_snickers = 0
-        self.player_1_finished = False
-        self.player_2_finished = False
         self.level_complete = False
 
     def check_puddles(self):
@@ -78,14 +74,16 @@ class Game:
                     self.reset_level()
 
     def check_exit_doors(self):
+        player_1_at_exit = False
+        player_2_at_exit = False
         for exit_door in self.exit_doors:
             if exit_door.player_number == 1:
                 if self.player_1.rect.colliderect(exit_door.rect):
-                    self.player_1_finished = True
+                    player_1_at_exit = True
             elif exit_door.player_number == 2:
                 if self.player_2.rect.colliderect(exit_door.rect):
-                    self.player_2_finished = True
-        if self.player_1_finished and self.player_2_finished:
+                    player_2_at_exit = True
+        if player_1_at_exit and player_2_at_exit:
             self.level_complete = True
 
     def handle_door_collisions(self):
