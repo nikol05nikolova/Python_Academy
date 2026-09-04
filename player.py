@@ -3,7 +3,9 @@ from constants import *
 
 
 class Player:
-    def __init__(self, x, y, width, height, color, image_path, left_key, right_key, jump_key):
+    def __init__(
+        self, x, y, width, height, color, image_path, left_key, right_key, jump_key
+    ):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.x = float(x)

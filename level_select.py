@@ -41,7 +41,9 @@ class LevelSelect:
                         if index < len(self.entries):
                             return self.entries[index][1]
             self.screen.fill(BACKGROUND_COLOR)
-            title_surface = self.title_font.render("Select a Level", True, (255, 255, 255))
+            title_surface = self.title_font.render(
+                "Select a Level", True, (255, 255, 255)
+            )
             title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, 120))
             self.screen.blit(title_surface, title_rect)
             mouse_pos = pygame.mouse.get_pos()

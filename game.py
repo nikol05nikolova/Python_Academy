@@ -88,9 +88,7 @@ class Game:
         collected = self.collected_snickers
         total = len(self.snickers)
         text = self.font.render(
-            f"Snickers: {collected} / {total}",
-            True,
-            (255, 255, 255)
+            f"Snickers: {collected} / {total}", True, (255, 255, 255)
         )
         self.screen.blit(text, (20, 20))
 
@@ -109,7 +107,9 @@ class Game:
         overlay.fill((0, 0, 0, 160))
         self.screen.blit(overlay, (0, 0))
         title_surface = self.pause_title_font.render("Paused", True, (255, 255, 255))
-        title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 80))
+        title_rect = title_surface.get_rect(
+            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 80)
+        )
         self.screen.blit(title_surface, title_rect)
         mouse_pos = pygame.mouse.get_pos()
         for rect, label in self.pause_entries:
@@ -135,7 +135,11 @@ class Game:
                             self.player_1.jump()
                         if event.key == self.player_2.jump_key:
                             self.player_2.jump()
-                if self.paused and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if (
+                    self.paused
+                    and event.type == pygame.MOUSEBUTTONDOWN
+                    and event.button == 1
+                ):
                     for rect, label in self.pause_entries:
                         if rect.collidepoint(event.pos):
                             if label == "Reset Level":

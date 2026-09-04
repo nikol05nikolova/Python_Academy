@@ -23,10 +23,16 @@ class Menu:
                         return
             self.screen.fill(BACKGROUND_COLOR)
             title_surface = self.title_font.render(WINDOW_TITLE, True, (255, 255, 255))
-            title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40))
+            title_rect = title_surface.get_rect(
+                center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
+            )
             self.screen.blit(title_surface, title_rect)
-            prompt_surface = self.prompt_font.render("Press ENTER or SPACE to play", True, (200, 200, 200))
-            prompt_rect = prompt_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40))
+            prompt_surface = self.prompt_font.render(
+                "Press ENTER or SPACE to play", True, (200, 200, 200)
+            )
+            prompt_rect = prompt_surface.get_rect(
+                center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40)
+            )
             self.screen.blit(prompt_surface, prompt_rect)
             pygame.display.update()
             self.clock.tick(60)

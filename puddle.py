@@ -7,8 +7,7 @@ class Puddle:
         self.color = color
         self.puddle_type = puddle_type
         self.image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image,(width, height))
+        self.image = pygame.transform.scale(self.image, (width, height))
 
     def draw(self, screen):
-            screen.blit(self.image, self.rect)
-    
+        screen.blit(self.image, self.rect)
