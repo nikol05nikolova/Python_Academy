@@ -8,8 +8,13 @@ class Door:
         self.button = button
         self.open = False
 
-    def update(self):
+    def update(self, computers):
         self.open = self.button.pressed
+        if not self.open:
+            for computer in computers:
+                if self.rect.colliderect(computer.rect):
+                    self.open = True
+                    break
 
     def draw(self, screen):
         if not self.open:

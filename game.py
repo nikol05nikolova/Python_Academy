@@ -107,6 +107,13 @@ class Game:
                 50,
                 (120, 120, 120),
             ),
+            Computer(
+                100,
+                300,
+                50,
+                50,
+                (120, 120, 120),
+                    ),
         ]
 
     def reset_level(self):
@@ -172,7 +179,7 @@ class Game:
             for button in self.buttons:
                 button.update(self.player_1, self.player_2, self.computers)
             for door in self.doors:
-                door.update()
+                door.update(self.computers)
             self.handle_door_collisions()
             for snickers in self.snickers:
                 if (

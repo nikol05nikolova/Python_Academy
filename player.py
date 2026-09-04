@@ -63,13 +63,14 @@ class Player:
                 self.x = self.rect.x
                 self.velocity_x = 0
         for door in doors:
-            if not door.open and self.rect.colliderect(door.rect):
-                if self.velocity_x > 0:
-                    self.rect.right = door.rect.left
-                elif self.velocity_x < 0:
-                    self.rect.left = door.rect.right
-                self.x = self.rect.x
-                self.velocity_x = 0
+            if not door.open:
+                if self.rect.colliderect(door.rect):
+                    if self.velocity_x > 0:
+                        self.rect.right = door.rect.left
+                    elif self.velocity_x < 0:
+                        self.rect.left = door.rect.right
+                    self.x = self.rect.x
+                    self.velocity_x = 0
         for computer in computers:
             if self.rect.colliderect(computer.rect):
                 if self.velocity_x > 0:
