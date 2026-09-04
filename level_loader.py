@@ -43,6 +43,13 @@ SNICKERS_IMAGES = {
     "yellow": "data/images/snickers_yellow.png",
 }
 
+DOOR_IMAGES = {
+    "purple": "data/images/door_purple.png",
+    "pink": "data/images/door_pink.png",
+    "green": "data/images/door_green.png",
+    "red": "data/images/door_red.png",
+}
+
 
 class Level:
     def __init__(self, data):
@@ -98,7 +105,7 @@ class Level:
                 d["y"],
                 d["width"],
                 d["height"],
-                NAMED_COLORS[d["color"]],
+                DOOR_IMAGES[d["color"]],
                 self.buttons[d["button_index"]],
             )
             for d in data.get("doors", [])

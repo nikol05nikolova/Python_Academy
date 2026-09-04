@@ -2,11 +2,15 @@ import pygame
 
 
 class Door:
-    def __init__(self, x, y, width, height, color, button):
+    def __init__(self, x, y, width, height, image_path, button):
         self.rect = pygame.Rect(x, y, width, height)
-        self.color = color
         self.button = button
         self.open = False
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(
+            self.image,
+            (width, height)
+        )
 
     def update(self, computers):
         self.open = self.button.pressed
@@ -18,4 +22,4 @@ class Door:
 
     def draw(self, screen):
         if not self.open:
-            pygame.draw.rect(screen, self.color, self.rect)
+            screen.blit(self.image, self.rect)
