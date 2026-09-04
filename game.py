@@ -2,24 +2,28 @@ import sys
 import pygame
 from constants import *
 from player import Player
-from game_platform import Platform
-from snickers import Snickers
-from puddle import Puddle
-from button import Button
-from door import Door
-from computer import Computer
+from level_loader import load_level
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, level_path):
         pygame.init()
         pygame.display.set_caption(WINDOW_TITLE)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 32)
+        self.pause_title_font = pygame.font.Font(None, 48)
+        self.pause_item_font = pygame.font.Font(None, 36)
+        self.level_path = level_path
+        self.paused = False
+        self.pause_entries = []
+        self.build_level()
+
+    def build_level(self):
+        level = load_level(self.level_path)
         self.player_1 = Player(
-            PLAYER_1_START_X,
-            PLAYER_1_START_Y,
+            level.player_1_start["x"],
+            level.player_1_start["y"],
             PLAYER_WIDTH,
             PLAYER_HEIGHT,
             PLAYER_1_COLOR,
@@ -29,8 +33,8 @@ class Game:
             pygame.K_w,
         )
         self.player_2 = Player(
-            PLAYER_2_START_X,
-            PLAYER_2_START_Y,
+            level.player_2_start["x"],
+            level.player_2_start["y"],
             PLAYER_WIDTH,
             PLAYER_HEIGHT,
             PLAYER_2_COLOR,
@@ -39,75 +43,13 @@ class Game:
             pygame.K_RIGHT,
             pygame.K_UP,
         )
-        self.platforms = [
-            Platform(0, 650, 900, 50, PLATFORM_COLOR),
-            Platform(120, 570, 180, 20, PLATFORM_COLOR),
-            Platform(420, 460, 180, 20, PLATFORM_COLOR),
-            Platform(180, 340, 160, 20, PLATFORM_COLOR),
-            Platform(520, 250, 180, 20, PLATFORM_COLOR),
-        ]
-
-        self.snickers = [
-            Snickers(200, 527, SNICKERS_WIDTH, SNICKERS_HEIGHT,  "data/images/snickers_blue.png", 1),
-            Snickers(460, 417, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
-            Snickers(230, 297, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_blue.png", 1),
-            Snickers(580, 207, SNICKERS_WIDTH, SNICKERS_HEIGHT, "data/images/snickers_yellow.png", 2),
-        ]
+        self.platforms = level.platforms
+        self.snickers = level.snickers
         self.collected_snickers = 0
-
-        self.puddles = [
-            Puddle(
-                350,
-                640,
-                90,
-                PUDDLE_HEIGHT,
-                BLUE_PUDDLE_COLOR,
-                "data/images/puddle_blue.png",
-                "blue",
-            ),
-            Puddle(
-                530,
-                640,
-                90,
-                PUDDLE_HEIGHT,
-                YELLOW_PUDDLE_COLOR,
-                "data/images/puddle_yellow.png",
-                "yellow",
-            ),
-            Puddle(
-                750,
-                640,
-                100,
-                PUDDLE_HEIGHT,
-                GREEN_PUDDLE_COLOR,
-                "data/images/puddle_green.png",
-                "green",
-            ),
-        ]
-
-        self.buttons = [
-            Button(150, 640, 50, 20, PURPLE_COLOR, "data/images/button_purple.png", "data/images/button_purple_pressed.png"),
-            Button(300, 640, 50, 20, PINK_COLOR, "data/images/button_pink.png", "data/images/button_pink_pressed.png"),
-            Button(490, 450, 50, 20, GREEN_COLOR, "data/images/button_green.png", "data/images/button_green_pressed.png"),
-            Button(650, 640, 50, 20, RED_COLOR, "data/images/button_red.png", "data/images/button_red_pressed.png"),
-        ]
-
-        self.doors = [
-            Door(250, 590, 30, 60, PURPLE_COLOR, self.buttons[0]),
-            Door(400, 590, 30, 60, PINK_COLOR, self.buttons[1]),
-            Door(550, 400, 30, 60, GREEN_COLOR, self.buttons[2]),
-            Door(800, 590, 30, 60, RED_COLOR, self.buttons[3]),
-        ]
-
-        self.computers = [
-            Computer(
-                100,
-                500,
-                50,
-                50,
-                (120, 120, 120),
-            ),
-        ]
+        self.puddles = level.puddles
+        self.buttons = level.buttons
+        self.doors = level.doors
+        self.computers = level.computers
 
     def reset_level(self):
         self.player_1.reset()
@@ -152,58 +94,104 @@ class Game:
         )
         self.screen.blit(text, (20, 20))
 
+    def build_pause_entries(self):
+        self.pause_entries = []
+        labels = ["Reset Level", "Return to Main Menu"]
+        start_y = SCREEN_HEIGHT // 2 - 10
+        spacing = 60
+        for index, label in enumerate(labels):
+            rect = pygame.Rect(0, 0, 320, 44)
+            rect.center = (SCREEN_WIDTH // 2, start_y + index * spacing)
+            self.pause_entries.append((rect, label))
+
+    def draw_pause_overlay(self):
+        overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 160))
+        self.screen.blit(overlay, (0, 0))
+        title_surface = self.pause_title_font.render("Paused", True, (255, 255, 255))
+        title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 80))
+        self.screen.blit(title_surface, title_rect)
+        mouse_pos = pygame.mouse.get_pos()
+        for rect, label in self.pause_entries:
+            hovered = rect.collidepoint(mouse_pos)
+            color = (90, 90, 90) if hovered else (60, 60, 60)
+            pygame.draw.rect(self.screen, color, rect, border_radius=8)
+            text_surface = self.pause_item_font.render(label, True, (255, 255, 255))
+            text_rect = text_surface.get_rect(center=rect.center)
+            self.screen.blit(text_surface, text_rect)
+
     def run(self):
+        self.build_pause_entries()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == self.player_1.jump_key:
-                        self.player_1.jump()
-                    if event.key == self.player_2.jump_key:
-                        self.player_2.jump()
-            self.screen.fill(BACKGROUND_COLOR)
-            for computer in self.computers:
-                computer.update(self.platforms, self.computers, self.doors)
-            self.player_1.update(self.platforms, self.doors, self.computers)
-            self.player_2.update(self.platforms, self.doors, self.computers)
-            self.check_puddles()
-            for button in self.buttons:
-                button.update(self.player_1, self.player_2, self.computers)
-            for door in self.doors:
-                door.update(self.computers)
-            self.handle_door_collisions()
-            for snickers in self.snickers:
-                if (
-                    not snickers.collected
-                    and self.player_1.rect.colliderect(snickers.rect)
-                    and snickers.player_number == 1
-                ):
-                    snickers.collect()
-                    self.collected_snickers += 1
-
-                if (
-                    not snickers.collected
-                    and self.player_2.rect.colliderect(snickers.rect)
-                    and snickers.player_number == 2
-                ):
-                    snickers.collect()
-                    self.collected_snickers += 1
-            for platform in self.platforms:
-                platform.draw(self.screen)
-            for puddle in self.puddles:
-                puddle.draw(self.screen)
-            for button in self.buttons:
-                button.draw(self.screen)
-            for door in self.doors:
-                door.draw(self.screen)
-            for snickers in self.snickers:
-                snickers.draw(self.screen)
-            for computer in self.computers:
-                computer.draw(self.screen)
-            self.player_1.draw(self.screen)
-            self.player_2.draw(self.screen)
-            self.draw_ui()
+                    if event.key == pygame.K_ESCAPE:
+                        self.paused = not self.paused
+                    elif not self.paused:
+                        if event.key == self.player_1.jump_key:
+                            self.player_1.jump()
+                        if event.key == self.player_2.jump_key:
+                            self.player_2.jump()
+                if self.paused and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    for rect, label in self.pause_entries:
+                        if rect.collidepoint(event.pos):
+                            if label == "Reset Level":
+                                self.reset_level()
+                                self.paused = False
+                            elif label == "Return to Main Menu":
+                                return
+            if not self.paused:
+                self.update_world()
+            self.draw_world()
+            if self.paused:
+                self.draw_pause_overlay()
             pygame.display.update()
             self.clock.tick(60)
+
+    def update_world(self):
+        for computer in self.computers:
+            computer.update(self.platforms, self.computers, self.doors)
+        self.player_1.update(self.platforms, self.doors, self.computers)
+        self.player_2.update(self.platforms, self.doors, self.computers)
+        self.check_puddles()
+        for button in self.buttons:
+            button.update(self.player_1, self.player_2, self.computers)
+        for door in self.doors:
+            door.update(self.computers)
+        self.handle_door_collisions()
+        for snickers in self.snickers:
+            if (
+                not snickers.collected
+                and self.player_1.rect.colliderect(snickers.rect)
+                and snickers.player_number == 1
+            ):
+                snickers.collect()
+                self.collected_snickers += 1
+            if (
+                not snickers.collected
+                and self.player_2.rect.colliderect(snickers.rect)
+                and snickers.player_number == 2
+            ):
+                snickers.collect()
+                self.collected_snickers += 1
+
+    def draw_world(self):
+        self.screen.fill(BACKGROUND_COLOR)
+        for platform in self.platforms:
+            platform.draw(self.screen)
+        for puddle in self.puddles:
+            puddle.draw(self.screen)
+        for button in self.buttons:
+            button.draw(self.screen)
+        for door in self.doors:
+            door.draw(self.screen)
+        for snickers in self.snickers:
+            snickers.draw(self.screen)
+        for computer in self.computers:
+            computer.draw(self.screen)
+        self.player_1.draw(self.screen)
+        self.player_2.draw(self.screen)
+        self.draw_ui()
