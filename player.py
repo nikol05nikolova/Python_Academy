@@ -80,7 +80,7 @@ class Player:
                     self.rect.left = computer.rect.right
                 self.x = self.rect.x
 
-    def move_vertical(self, platforms):
+    def move_vertical(self, platforms, computers):
         self.is_on_ground = False
         self.y += self.velocity_y
         self.rect.y = round(self.y)
@@ -91,6 +91,15 @@ class Player:
                     self.is_on_ground = True
                 elif self.velocity_y < 0:
                     self.rect.top = platform.rect.bottom
+                self.y = self.rect.y
+                self.velocity_y = 0
+        for computer in computers:
+            if self.rect.colliderect(computer.rect):
+                if self.velocity_y > 0:
+                    self.rect.bottom = computer.rect.top
+                    self.is_on_ground = True
+                elif self.velocity_y < 0:
+                    self.rect.top = computer.rect.bottom
                 self.y = self.rect.y
                 self.velocity_y = 0
 
@@ -114,7 +123,7 @@ class Player:
         self.handle_input()
         self.move_horizontal(platforms, doors, computers)
         self.apply_gravity()
-        self.move_vertical(platforms)
+        self.move_vertical(platforms, computers)
         self.apply_friction()
         self.keep_inside_screen()
 

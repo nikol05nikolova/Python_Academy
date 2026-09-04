@@ -20,7 +20,7 @@ class Computer:
         if abs(self.velocity_x) < 0.1:
             self.velocity_x = 0
 
-    def move_vertical(self, platforms):
+    def move_vertical(self, platforms, computers):
         self.is_on_ground = False
         self.y += self.velocity_y
         self.rect.y = round(self.y)
@@ -31,6 +31,17 @@ class Computer:
                     self.is_on_ground = True
                 elif self.velocity_y < 0:
                     self.rect.top = platform.rect.bottom
+                self.y = self.rect.y
+                self.velocity_y = 0
+        for computer in computers:
+            if computer is self:
+                continue
+            if self.rect.colliderect(computer.rect):
+                if self.velocity_y > 0:
+                    self.rect.bottom = computer.rect.top
+                    self.is_on_ground = True
+                elif self.velocity_y < 0:
+                    self.rect.top = computer.rect.bottom
                 self.y = self.rect.y
                 self.velocity_y = 0
 
@@ -59,7 +70,7 @@ class Computer:
     def update(self, platforms, computers):
         self.move_horizontal(platforms, computers)
         self.apply_gravity()
-        self.move_vertical(platforms)
+        self.move_vertical(platforms, computers)
         self.apply_friction()
 
     def push(self, velocity):
