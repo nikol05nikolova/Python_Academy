@@ -50,6 +50,8 @@ DOOR_IMAGES = {
     "red": "data/images/door_red.png",
 }
 
+COMPUTER_IMAGE = "data/images/computer.png"
+
 EXIT_DOOR_IMAGES = {
     "blue": "data/images/exit_door_blue.png",
     "yellow": "data/images/exit_door_yellow.png",
@@ -127,7 +129,13 @@ class Level:
             for d in data.get("exit_doors", [])
         ]
         self.computers = [
-            Computer(c["x"], c["y"], c["width"], c["height"], (120, 120, 120))
+            Computer(
+                c["x"],
+                c["y"],
+                c["width"],
+                c["height"],
+                COMPUTER_IMAGE,
+            )
             for c in data.get("computers", [])
         ]
 

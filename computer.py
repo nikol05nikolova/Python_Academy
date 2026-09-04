@@ -3,9 +3,8 @@ from constants import *
 
 
 class Computer:
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, image_path):
         self.rect = pygame.Rect(x, y, width, height)
-        self.color = color
         self.x = float(x)
         self.y = float(y)
         self.start_x = x
@@ -13,6 +12,11 @@ class Computer:
         self.velocity_x = 0
         self.velocity_y = 0
         self.is_on_ground = False
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(
+            self.image,
+            (width, height)
+        )
 
     def reset(self):
         self.x = float(self.start_x)
@@ -111,4 +115,4 @@ class Computer:
         self.apply_friction()
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
+        screen.blit(self.image, self.rect)
