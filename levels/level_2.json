@@ -1,41 +1,66 @@
 {
-    "player_1_start": {"x": 20, "y": 100},
-    "player_2_start": {"x": 70, "y": 100},
+    "player_1_start": {"x": 30, "y": 580},
+    "player_2_start": {"x": 10, "y": 580},
     "platforms": [
         {"x": 0, "y": 650, "width": 900, "height": 50},
-        {"x": 650, "y": 540, "width": 200, "height": 20},
-        {"x": 400, "y": 430, "width": 200, "height": 20},
-        {"x": 150, "y": 320, "width": 200, "height": 20},
-        {"x": 500, "y": 210, "width": 200, "height": 20}
+        {"x": 150, "y": 540, "width": 250, "height": 20},
+        {"x": 500, "y": 540, "width": 250, "height": 20},
+        {"x": 0, "y": 420, "width": 750, "height": 20},
+        {"x": 830, "y": 550, "width": 70, "height": 20},
+        {"x": 53, "y": 210, "width": 100, "height": 20},
+        {"x": 300, "y": 300, "width": 600, "height": 20},
+        {"x": 500, "y": 190, "width": 150, "height": 20},
+        {"x": 800, "y": 80, "width": 100, "height": 20}
     ],
     "snickers": [
-        {"x": 730, "y": 510, "color": "blue", "player_number": 1},
-        {"x": 480, "y": 400, "color": "yellow", "player_number": 2},
-        {"x": 230, "y": 290, "color": "blue", "player_number": 1},
-        {"x": 580, "y": 180, "color": "yellow", "player_number": 2}
+        {"x": 200, "y": 505, "color": "blue", "player_number": 1},
+        {"x": 320, "y": 505, "color": "blue", "player_number": 1},
+        {"x": 550, "y": 505, "color": "yellow", "player_number": 2},
+        {"x": 670, "y": 505, "color": "yellow", "player_number": 2},
+        {"x": 200, "y": 375, "color": "blue", "player_number": 1},
+        {"x": 320, "y": 375, "color": "blue", "player_number": 1},
+        {"x": 550, "y": 375, "color": "yellow", "player_number": 2},
+        {"x": 670, "y": 375, "color": "yellow", "player_number": 2},
+        {"x": 80, "y": 165, "color": "blue", "player_number": 1},
+        {"x": 260, "y": 0, "color": "yellow", "player_number": 2},
+        {"x": 550, "y": 145, "color": "yellow", "player_number": 2},
+        {"x": 850, "y": 35, "color": "blue", "player_number": 1}
     ],
     "puddles": [
-        {"x": 400, "y": 640, "width": 90, "type": "green"}
+        {"x": 150, "y": 640, "width": 250, "type": "yellow"},
+        {"x": 500, "y": 640, "width": 250, "type": "blue"},
+        {"x": 150, "y": 530, "width": 250, "type": "blue"},
+        {"x": 500, "y": 530, "width": 250, "type": "yellow"},
+        {"x": 400, "y": 290, "width": 500, "type": "green"}
     ],
-    "buttons": [],
-    "doors": [],
-    "computers": [],
+    "buttons": [
+        {"x": 200, "y": 410, "width": 50, "height": 20, "color": "pink"},
+        {"x": 10, "y": 410, "width": 50, "height": 20, "color": "green"},
+        {"x": 650, "y": 410, "width": 50, "height": 20, "color": "pink"}
+    ],
+    "doors": [
+        {"x": 430, "y": 320, "width": 30, "height": 100, "color": "pink"},
+        {"x": 500, "y": 100, "width": 30, "height": 90, "color": "green"}
+    ],
     "exit_doors": [
         {
-            "x": 610,
-            "y": 480,
-            "width": 40,
-            "height": 60,
+            "x": 600,
+            "y": 115,
+            "width": 50,
+            "height": 75,
             "color": "blue",
             "player_number": 1
         },
         {
-            "x": 760,
-            "y": 480,
-            "width": 40,
-            "height": 60,
+            "x": 825,
+            "y": 5,
+            "width": 50,
+            "height": 75,
             "color": "yellow",
             "player_number": 2
         }
+    ],
+    "computers": [
+        {"x": 75, "y": 190, "width": 50, "height": 50}
     ]
 }
