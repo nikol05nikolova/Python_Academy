@@ -8,6 +8,17 @@ class Computer:
         self.color = color
         self.x = float(x)
         self.y = float(y)
+        self.start_x = x
+        self.start_y = y
+        self.velocity_x = 0
+        self.velocity_y = 0
+        self.is_on_ground = False
+
+    def reset(self):
+        self.x = float(self.start_x)
+        self.y = float(self.start_y)
+        self.rect.x = self.start_x
+        self.rect.y = self.start_y
         self.velocity_x = 0
         self.velocity_y = 0
         self.is_on_ground = False
@@ -20,7 +31,7 @@ class Computer:
         if abs(self.velocity_x) < 0.1:
             self.velocity_x = 0
 
-    def move_vertical(self, platforms, computers):
+    def move_vertical(self, platforms, computers, doors):
         self.is_on_ground = False
         self.y += self.velocity_y
         self.rect.y = round(self.y)
@@ -44,8 +55,19 @@ class Computer:
                     self.rect.top = computer.rect.bottom
                 self.y = self.rect.y
                 self.velocity_y = 0
+        for door in doors:
+            if door.open:
+                continue
+            if self.rect.colliderect(door.rect):
+                if self.velocity_y > 0:
+                    self.rect.bottom = door.rect.top
+                    self.is_on_ground = True
+                elif self.velocity_y < 0:
+                    self.rect.top = door.rect.bottom
+                self.y = self.rect.y
+                self.velocity_y = 0
 
-    def move_horizontal(self, platforms, computers):
+    def move_horizontal(self, platforms, computers, doors):
         self.x += self.velocity_x
         self.rect.x = round(self.x)
         for platform in platforms:
@@ -66,11 +88,21 @@ class Computer:
                     self.rect.left = computer.rect.right
                 self.x = self.rect.x
                 self.velocity_x = 0
+        for door in doors:
+            if door.open:
+                continue
+            if self.rect.colliderect(door.rect):
+                if self.velocity_x > 0:
+                    self.rect.right = door.rect.left
+                elif self.velocity_x < 0:
+                    self.rect.left = door.rect.right
+                self.x = self.rect.x
+                self.velocity_x = 0
 
-    def update(self, platforms, computers):
-        self.move_horizontal(platforms, computers)
+    def update(self, platforms, computers, doors):
+        self.move_horizontal(platforms, computers, doors)
         self.apply_gravity()
-        self.move_vertical(platforms, computers)
+        self.move_vertical(platforms, computers, doors)
         self.apply_friction()
 
     def push(self, velocity):

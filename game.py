@@ -114,6 +114,8 @@ class Game:
         self.player_2.reset()
         for snickers in self.snickers:
             snickers.reset()
+        for computer in self.computers:
+            computer.reset()
         self.collected_snickers = 0
 
     def check_puddles(self):
@@ -163,7 +165,7 @@ class Game:
                         self.player_2.jump()
             self.screen.fill(BACKGROUND_COLOR)
             for computer in self.computers:
-                computer.update(self.platforms, self.computers)
+                computer.update(self.platforms, self.computers, self.doors)
             self.player_1.update(self.platforms, self.doors, self.computers)
             self.player_2.update(self.platforms, self.doors, self.computers)
             self.check_puddles()
