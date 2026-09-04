@@ -7,6 +7,7 @@ from snickers import Snickers
 from puddle import Puddle
 from button import Button
 from door import Door
+from computer import Computer
 
 
 class Game:
@@ -98,6 +99,16 @@ class Game:
             Door(800, 590, 30, 60, RED_COLOR, self.buttons[3]),
         ]
 
+        self.computers = [
+            Computer(
+                100,
+                500,
+                50,
+                50,
+                (120, 120, 120),
+            ),
+        ]
+
     def reset_level(self):
         self.player_1.reset()
         self.player_2.reset()
@@ -151,8 +162,10 @@ class Game:
                     if event.key == self.player_2.jump_key:
                         self.player_2.jump()
             self.screen.fill(BACKGROUND_COLOR)
-            self.player_1.update(self.platforms, self.doors)
-            self.player_2.update(self.platforms, self.doors)
+            for computer in self.computers:
+                computer.update(self.platforms, self.computers)
+            self.player_1.update(self.platforms, self.doors, self.computers)
+            self.player_2.update(self.platforms, self.doors, self.computers)
             self.check_puddles()
             for button in self.buttons:
                 button.update(self.player_1, self.player_2)
@@ -185,6 +198,8 @@ class Game:
                 door.draw(self.screen)
             for snickers in self.snickers:
                 snickers.draw(self.screen)
+            for computer in self.computers:
+                computer.draw(self.screen)
             self.player_1.draw(self.screen)
             self.player_2.draw(self.screen)
             self.draw_ui()
