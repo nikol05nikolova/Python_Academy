@@ -106,17 +106,14 @@ class Level:
             )
             for b in data.get("buttons", [])
         ]
-        self.doors = [
-            Door(
-                d["x"],
-                d["y"],
-                d["width"],
-                d["height"],
-                DOOR_IMAGES[d["color"]],
-                self.buttons[d["button_index"]],
+        self.doors = []
+        for d in data.get("doors", []):
+            door_color = NAMED_COLORS[d["color"]]
+            door_image = DOOR_IMAGES[d["color"]]
+            linked_buttons = [b for b in self.buttons if b.color == door_color]
+            self.doors.append(
+                Door(d["x"], d["y"], d["width"], d["height"], door_image, linked_buttons)
             )
-            for d in data.get("doors", [])
-        ]
         self.exit_doors = [
             ExitDoor(
                 d["x"],
