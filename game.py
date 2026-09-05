@@ -139,13 +139,31 @@ class Game:
 
     def draw_level_complete(self):
         self.screen.fill(BACKGROUND_COLOR)
-        text_surface = self.complete_font.render(
+        title_surface = self.complete_font.render(
             "Level Complete!", True, (255, 255, 255)
         )
-        text_rect = text_surface.get_rect(
-            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        title_rect = title_surface.get_rect(
+            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50)
         )
-        self.screen.blit(text_surface, text_rect)
+        self.screen.blit(title_surface, title_rect)
+        snickers_surface = self.font.render(
+            f"Snickers: {self.collected_snickers} / {len(self.snickers)}",
+            True,
+            (255, 255, 255)
+        )
+        snickers_rect = snickers_surface.get_rect(
+            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30)
+        )
+        self.screen.blit(snickers_surface, snickers_rect)
+        continue_surface = self.font.render(
+            "Press Enter or Space to continue",
+            True,
+            (255, 255, 255)
+        )
+        continue_rect = continue_surface.get_rect(
+            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 80)
+        )
+        self.screen.blit(continue_surface, continue_rect)
 
     def run(self):
         self.build_pause_entries()
