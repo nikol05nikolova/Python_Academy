@@ -16,7 +16,7 @@ class LevelSelect:
 
     def build_entries(self):
         self.entries = []
-        start_y = 220
+        start_y = 360
         spacing = 60
         for index, path in enumerate(self.level_paths):
             label = f"Level {index + 1}"
@@ -44,7 +44,7 @@ class LevelSelect:
             title_surface = self.title_font.render(
                 "Select a Level", True, (255, 255, 255)
             )
-            title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, 120))
+            title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, 280))
             self.screen.blit(title_surface, title_rect)
             mouse_pos = pygame.mouse.get_pos()
             for rect, _, label in self.entries:
