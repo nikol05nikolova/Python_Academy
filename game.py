@@ -149,16 +149,14 @@ class Game:
         snickers_surface = self.font.render(
             f"Snickers: {self.collected_snickers} / {len(self.snickers)}",
             True,
-            (255, 255, 255)
+            (255, 255, 255),
         )
         snickers_rect = snickers_surface.get_rect(
             center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30)
         )
         self.screen.blit(snickers_surface, snickers_rect)
         continue_surface = self.font.render(
-            "Press Enter or Space to continue",
-            True,
-            (255, 255, 255)
+            "Press Enter or Space to continue", True, (255, 255, 255)
         )
         continue_rect = continue_surface.get_rect(
             center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 80)

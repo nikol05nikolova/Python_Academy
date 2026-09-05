@@ -20,7 +20,10 @@ NAMED_COLORS = {
 }
 
 BUTTON_IMAGES = {
-    "purple": ("data/images/button_purple.png", "data/images/button_purple_pressed.png"),
+    "purple": (
+        "data/images/button_purple.png",
+        "data/images/button_purple_pressed.png",
+    ),
     "pink": ("data/images/button_pink.png", "data/images/button_pink_pressed.png"),
     "green": ("data/images/button_green.png", "data/images/button_green_pressed.png"),
     "red": ("data/images/button_red.png", "data/images/button_red_pressed.png"),
@@ -112,7 +115,9 @@ class Level:
             door_image = DOOR_IMAGES[d["color"]]
             linked_buttons = [b for b in self.buttons if b.color == door_color]
             self.doors.append(
-                Door(d["x"], d["y"], d["width"], d["height"], door_image, linked_buttons)
+                Door(
+                    d["x"], d["y"], d["width"], d["height"], door_image, linked_buttons
+                )
             )
         self.exit_doors = [
             ExitDoor(

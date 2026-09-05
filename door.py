@@ -7,10 +7,7 @@ class Door:
         self.buttons = buttons
         self.open = False
         self.image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.transform.scale(
-            self.image,
-            (width, height)
-        )
+        self.image = pygame.transform.scale(self.image, (width, height))
 
     def update(self, computers):
         self.open = any(button.pressed for button in self.buttons)

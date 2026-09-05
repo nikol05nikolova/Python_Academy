@@ -28,7 +28,7 @@ class TestPlayer(unittest.TestCase):
                 "snake_blue.png",
                 pygame.K_a,
                 pygame.K_d,
-                pygame.K_w
+                pygame.K_w,
             )
 
     def test_player_starts_at_given_position(self):

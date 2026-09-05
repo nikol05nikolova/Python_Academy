@@ -18,10 +18,7 @@ class TestButton(unittest.TestCase):
         image = pygame.Surface((50, 20))
         mock_load.return_value.convert_alpha.return_value = image
         button = Button(
-            100, 200, 50, 20,
-            (240, 100, 170),
-            "button.png",
-            "button_pressed.png"
+            100, 200, 50, 20, (240, 100, 170), "button.png", "button_pressed.png"
         )
         self.assertFalse(button.pressed)
 
@@ -30,10 +27,7 @@ class TestButton(unittest.TestCase):
         image = pygame.Surface((50, 20))
         mock_load.return_value.convert_alpha.return_value = image
         button = Button(
-            100, 200, 50, 20,
-            (240, 100, 170),
-            "button.png",
-            "button_pressed.png"
+            100, 200, 50, 20, (240, 100, 170), "button.png", "button_pressed.png"
         )
         player_1 = pygame.sprite.Sprite()
         player_1.rect = pygame.Rect(100, 200, 50, 50)
@@ -47,10 +41,7 @@ class TestButton(unittest.TestCase):
         image = pygame.Surface((50, 20))
         mock_load.return_value.convert_alpha.return_value = image
         button = Button(
-            100, 200, 50, 20,
-            (240, 100, 170),
-            "button.png",
-            "button_pressed.png"
+            100, 200, 50, 20, (240, 100, 170), "button.png", "button_pressed.png"
         )
         player_1 = pygame.sprite.Sprite()
         player_1.rect = pygame.Rect(500, 500, 50, 50)
@@ -66,10 +57,7 @@ class TestButton(unittest.TestCase):
         image = pygame.Surface((50, 20))
         mock_load.return_value.convert_alpha.return_value = image
         button = Button(
-            100, 200, 50, 20,
-            (240, 100, 170),
-            "button.png",
-            "button_pressed.png"
+            100, 200, 50, 20, (240, 100, 170), "button.png", "button_pressed.png"
         )
         player_1 = pygame.sprite.Sprite()
         player_1.rect = pygame.Rect(500, 500, 50, 50)

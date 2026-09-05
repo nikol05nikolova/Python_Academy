@@ -17,11 +17,7 @@ class TestDoor(unittest.TestCase):
     def test_door_starts_closed(self, mock_load):
         image = pygame.Surface((30, 100))
         mock_load.return_value.convert_alpha.return_value = image
-        door = Door(
-            100, 200, 30, 100,
-            "door_pink.png",
-            []
-        )
+        door = Door(100, 200, 30, 100, "door_pink.png", [])
         self.assertFalse(door.open)
 
     @patch("pygame.image.load")
@@ -30,11 +26,7 @@ class TestDoor(unittest.TestCase):
         mock_load.return_value.convert_alpha.return_value = image
         button = unittest.mock.Mock()
         button.pressed = True
-        door = Door(
-            100, 200, 30, 100,
-            "door_pink.png",
-            [button]
-        )
+        door = Door(100, 200, 30, 100, "door_pink.png", [button])
         door.update([])
         self.assertTrue(door.open)
 
@@ -44,11 +36,7 @@ class TestDoor(unittest.TestCase):
         mock_load.return_value.convert_alpha.return_value = image
         button = unittest.mock.Mock()
         button.pressed = False
-        door = Door(
-            100, 200, 30, 100,
-            "door_pink.png",
-            [button]
-        )
+        door = Door(100, 200, 30, 100, "door_pink.png", [button])
         door.update([])
         self.assertFalse(door.open)
 
@@ -56,11 +44,7 @@ class TestDoor(unittest.TestCase):
     def test_door_opens_when_computer_reaches_it(self, mock_load):
         image = pygame.Surface((30, 100))
         mock_load.return_value.convert_alpha.return_value = image
-        door = Door(
-            100, 200, 30, 100,
-            "door_pink.png",
-            []
-        )
+        door = Door(100, 200, 30, 100, "door_pink.png", [])
         computer = unittest.mock.Mock()
         computer.rect = pygame.Rect(100, 200, 50, 50)
         door.update([computer])

@@ -29,12 +29,10 @@ class TestLevelLoader(unittest.TestCase):
             "buttons": [],
             "doors": [],
             "exit_doors": [],
-            "computers": []
+            "computers": [],
         }
         with tempfile.NamedTemporaryFile(
-            mode="w",
-            suffix=".json",
-            delete=False
+            mode="w", suffix=".json", delete=False
         ) as file:
             json.dump(data, file)
             path = file.name
@@ -53,25 +51,16 @@ class TestLevelLoader(unittest.TestCase):
         data = {
             "player_1_start": {"x": 0, "y": 0},
             "player_2_start": {"x": 50, "y": 0},
-            "platforms": [
-                {
-                    "x": 100,
-                    "y": 200,
-                    "width": 300,
-                    "height": 20
-                }
-            ],
+            "platforms": [{"x": 100, "y": 200, "width": 300, "height": 20}],
             "snickers": [],
             "puddles": [],
             "buttons": [],
             "doors": [],
             "exit_doors": [],
-            "computers": []
+            "computers": [],
         }
         with tempfile.NamedTemporaryFile(
-            mode="w",
-            suffix=".json",
-            delete=False
+            mode="w", suffix=".json", delete=False
         ) as file:
             json.dump(data, file)
             path = file.name
@@ -91,24 +80,15 @@ class TestLevelLoader(unittest.TestCase):
             "player_1_start": {"x": 0, "y": 0},
             "player_2_start": {"x": 50, "y": 0},
             "platforms": [],
-            "snickers": [
-                {
-                    "x": 100,
-                    "y": 200,
-                    "color": "blue",
-                    "player_number": 1
-                }
-            ],
+            "snickers": [{"x": 100, "y": 200, "color": "blue", "player_number": 1}],
             "puddles": [],
             "buttons": [],
             "doors": [],
             "exit_doors": [],
-            "computers": []
+            "computers": [],
         }
         with tempfile.NamedTemporaryFile(
-            mode="w",
-            suffix=".json",
-            delete=False
+            mode="w", suffix=".json", delete=False
         ) as file:
             json.dump(data, file)
             path = file.name
@@ -121,25 +101,14 @@ class TestLevelLoader(unittest.TestCase):
 
     def test_list_levels_sorts_by_level_number(self):
         with tempfile.TemporaryDirectory() as directory:
-            filenames = [
-                "level_3.json",
-                "level_1.json",
-                "level_2.json"
-            ]
+            filenames = ["level_3.json", "level_1.json", "level_2.json"]
             for filename in filenames:
-                with open(
-                    os.path.join(directory, filename),
-                    "w"
-                ) as file:
+                with open(os.path.join(directory, filename), "w") as file:
                     file.write("{}")
             levels = list_levels(directory)
             self.assertEqual(
                 [os.path.basename(path) for path in levels],
-                [
-                    "level_1.json",
-                    "level_2.json",
-                    "level_3.json"
-                ]
+                ["level_1.json", "level_2.json", "level_3.json"],
             )
 
 

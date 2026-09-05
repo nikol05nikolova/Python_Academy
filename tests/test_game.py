@@ -3,15 +3,9 @@ from unittest.mock import Mock, patch
 import pygame
 from constants import (
     BLUE_PUDDLE_COLOR,
-    PLAYER_1_COLOR,
-    PLAYER_2_COLOR,
-    PLATFORM_COLOR,
-    SCREEN_HEIGHT,
-    SCREEN_WIDTH,
     YELLOW_PUDDLE_COLOR,
 )
 from game import Game
-from game_platform import Platform
 from puddle import Puddle
 from snickers import Snickers
 

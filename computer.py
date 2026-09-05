@@ -13,10 +13,7 @@ class Computer:
         self.velocity_y = 0
         self.is_on_ground = False
         self.image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.transform.scale(
-            self.image,
-            (width, height)
-        )
+        self.image = pygame.transform.scale(self.image, (width, height))
 
     def reset(self):
         self.x = float(self.start_x)
